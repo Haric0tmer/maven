@@ -1,0 +1,42 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Récupère ton code depuis le repo
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Installe Java 17 (version définie dans ton pom.xml)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    # 3. Exercice : Run mvn clean test
+    - name: Run Unit Tests
+      run: mvn clean test
+
+    # 4. Exercice : Add a step that runs mvn package
+    # Note : En réalité, 'package' relance les tests, mais on sépare ici pour l'exercice.
+    # L'option '-DskipTests' évite de les jouer deux fois pour gagner du temps.
+    - name: Package Application
+      run: mvn package -DskipTests
+
+    # 5. Exercice : Save the target/ folder as a build artifact
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bank-application-build
+        path: target/
+        retention-days: 1
