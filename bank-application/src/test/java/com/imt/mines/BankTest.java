@@ -2,6 +2,11 @@ package com.imt.mines;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.imt.mines.Bank;
+import com.imt.mines.BankAccount;
+import com.imt.mines.Person;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankTest {
@@ -42,5 +47,18 @@ class BankTest {
         acc.depositMoney(50.0);
 
         assertEquals(50.0, acc.getBalance(), "Le dépôt de 50 doit mettre le solde à 50");
+    }
+
+    @Test
+    void testDeleteAccount() throws Exception {
+        Person alice = new Person("Alice", 'F', 30, 1.65f);
+        BankAccount acc = new BankAccount(100.0, 500.0, "16/01/2026", alice);
+        int accNum = bank.addAccount(acc, 0);
+
+        assertNotNull(bank.findAccount(accNum));
+
+        bank.deleteAccount(accNum);
+
+        assertNull(bank.findAccount(accNum), "Le compte devrait avoir été supprimé");
     }
 }
