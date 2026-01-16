@@ -22,6 +22,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    
+    - name: Move to bank-application directory
+      run: cd bank-application
 
     # 3. Exercice : Run mvn clean test
     - name: Run Unit Tests
