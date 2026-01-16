@@ -1,0 +1,37 @@
+package com.imt.mines.bank.bdd;
+
+import static org.junit.Assert.assertEquals;
+
+// IMPORT IMPORTANT : On pointe vers ta classe existante
+import com.imt.mines.BankAccount;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+
+public class BankAccountBasicSteps {
+
+    private BankAccount account;
+    private int observedBalance;
+
+    @Given("I have a new bank account")
+    public void i_have_a_new_bank_account() {
+        // TODO: create a new bank account with initial balance 0
+        // On utilise le constructeur par défaut qui initialise à 0
+        account = new BankAccount();
+    }
+
+    @When("I check its balance")
+    public void i_check_its_balance() {
+        // TODO: read the balance from the account and store it in observedBalance
+        // getBalance retourne un double, on le cast en int pour cet exercice
+        observedBalance = (int) account.getBalance();
+    }
+
+    @Then("the balance should be {int}")
+    public void the_balance_should_be(Integer expected) {
+        // TODO: assert that observedBalance equals expected
+        // On compare la valeur attendue (0) avec ce qu'on a observé
+        assertEquals(expected.intValue(), observedBalance);
+    }
+}
