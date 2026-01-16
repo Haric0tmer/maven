@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bankAccountApp;
+package com.imt.mines;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -61,26 +61,43 @@ public class Bank {
 		return accountsLoaded;
 	}
 
-	public BankAccount findAccount(int accountNumber) { // FIX THIS NOW have account creater start at 0 instead of 1
-		int compareAccountNumber = 0;
-		BankAccount correctAccount = null;
+	// ! ANCIENNE METHODE
+
+	// public BankAccount findAccount(int accountNumber) { // FIX THIS NOW have
+	// account creater start at 0 instead of 1
+	// int compareAccountNumber = 0;
+	// BankAccount correctAccount = null;
+	// for (int i = 0; i < Accounts.size(); i++) {
+	// BankAccount acc = Accounts.get(i);
+	// compareAccountNumber = acc.getAccountNumber();
+
+	// if (accountNumber == compareAccountNumber) {
+	// success = true;
+	// correctAccount = acc;
+	// break;
+	// }
+
+	// }
+	// if (success == true) {
+	// return correctAccount;
+	// } else {
+	// return null;
+	// }
+
+	// }
+
+	// ? METHODE CORRIGEE
+	public BankAccount findAccount(int accountNumber) {
+		// On parcourt simplement la liste
 		for (int i = 0; i < Accounts.size(); i++) {
 			BankAccount acc = Accounts.get(i);
-			compareAccountNumber = acc.getAccountNumber();
-
-			if (accountNumber == compareAccountNumber) {
-				success = true;
-				correctAccount = acc;
-				break;
+			// Si on trouve le compte, on le retourne IMMÉDIATEMENT
+			if (acc.getAccountNumber() == accountNumber) {
+				return acc;
 			}
-
 		}
-		if (success == true) {
-			return correctAccount;
-		} else {
-			return null;
-		}
-
+		// Si on a fini la boucle sans rien trouver, on retourne null
+		return null;
 	}
 
 	public void deleteAccount(int accountNumber) {
